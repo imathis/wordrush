@@ -1,0 +1,16 @@
+h1 Game #{@game.name}
+
+p Welcome!
+
+- unless @game.players.empty?
+  ul
+  - @game.players.each do |player|
+    li
+      = link_to player.name, [@game, player]
+      ul
+      - player.words.each do |word|
+        li= link_to word.name, [@game, player, word]
+
+= form_for [@game, @game.players.build] do |form|
+  = form.text_field :name, placeholder: "Your Name"
+  = form.submit "Add Player"

@@ -1,0 +1,4 @@
+h1 Home#index
+= form_with scope: :game, url: games_path, local: true do |form|
+  = form.hidden_field :name, value: short_code
+  = form.submit "New Game"
