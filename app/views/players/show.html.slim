@@ -1,11 +1,7 @@
 h1 Player #{@player.name}
 
-h5 Words:
-ul
-  - @player.words.each do |word|
-    li= word.name
+h5 Words
+= render 'words/list'
 
-
-= form_for([@game, @player, @player.words.build]) do |form|
-  = form.text_area :name, placeholder: "Your Word"
-  = form.submit "Add Word"
+h5 New Word
+= render 'words/form'

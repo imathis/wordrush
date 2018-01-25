@@ -1,0 +1,3 @@
+ul
+  - @game.players.each do |player|
+    li=' link_to player.name, game_player_path(@game, player)

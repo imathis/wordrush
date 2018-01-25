@@ -1,10 +1,13 @@
 class WordsController < ApplicationController
-  def create
-
+  def index
+    @game = Game.find_by_name(params[:game_name])
     @player = Player.find(params[:player_id])
-    word_params.each do |word|
-      @word = @player.words.create(name: word)
-    end
+    @words = @player.words
+  end
+
+  def create
+    @player = Player.find(params[:player_id])
+    @player.words.create(word_params)
     
     redirect_to controller: "players", action: "show", id: @player.id
   end
@@ -12,7 +15,6 @@ class WordsController < ApplicationController
   private
 
   def word_params
-    entry = params.require(:word).permit(:name)[:name]
-    entry.to_s.split("\n")
+    params.require(:word).permit(:name)[:name]
   end
 end
