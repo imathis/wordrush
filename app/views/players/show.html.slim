@@ -1,7 +1,6 @@
-h1 Player #{@player.name}
-
-h5 Words
+h1 Alright #{@player.name}, choose #{@player.word_limit} words.
 = render 'words/list'
-
-h5 New Word
-= render 'words/form'
+- if @player.words_left > 0
+  = render 'words/form'
+- else
+  = link_to "Cotinue", "#"

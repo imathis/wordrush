@@ -2,9 +2,9 @@ class PlayersController < ApplicationController
   def create
 
     @game = Game.find_by_name(params[:game_name])
-    @player = @game.players.create(player_params)
+    @player = @game.players.create(player_params(@game))
     
-    redirect_to controller: "games", action: "show", name: @game.name
+    redirect_to controller: "players", action: "show", id: @player.id
   end
 
   def new
@@ -27,7 +27,9 @@ class PlayersController < ApplicationController
 
   private
 
-  def player_params
-    params.require(:player).permit(:name)
+  def player_params(game)
+    p = params.require(:player).permit(:name)
+    p[:team] = game.players.size % 2
+    p
   end
 end

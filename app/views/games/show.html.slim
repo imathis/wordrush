@@ -1,8 +1,11 @@
 h1 Game #{@game.name}
 
-p Welcome!
-
 - unless @game.players.empty?
   = render 'players/list'
+
+- if @game.enough_players?
+  button Go!
+- else
+  p Need #{@game.needed_players} more #{"player".pluralize(@game.needed_players)} to begin.
 
 = render 'players/form'

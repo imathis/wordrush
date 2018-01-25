@@ -15,6 +15,6 @@ class WordsController < ApplicationController
   private
 
   def word_params
-    params.require(:word).permit(:name)[:name]
+    params.require(:word).permit(:name)
   end
 end

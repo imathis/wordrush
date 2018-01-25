@@ -1,3 +1,5 @@
-ul
-  - @game.players.each do |player|
-    li=' link_to player.name, game_player_path(@game, player)
+- @game.teams.each do |team, players|
+  h5 Team #{team + 1}
+  ul
+    - players.each do |player|
+      li=' link_to player.name, player_path(player)

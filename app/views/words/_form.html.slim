@@ -1,3 +1,3 @@
-= form_with model: [@game, @player, @player.words.build], local: true do |form|
+= form_with model: [@player, @player.words.build], local: true do |form|
   = form.text_field :name, placeholder: "Your Word"
   = form.submit "Add Word"
