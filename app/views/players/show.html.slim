@@ -1,6 +1,6 @@
-h1 Alright #{@player.name}, choose #{@player.word_limit} words.
+h1 Words by #{@player.name}
 = render 'words/list'
 - if @player.words_left > 0
   = render 'words/form'
 - else
-  = link_to "Cotinue", "#"
+  = link_to "View Teams", game_path(name: @player.game.name)

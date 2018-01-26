@@ -1,11 +1,11 @@
-h1 Game #{@game.name}
+h1 Welcome to WordRush
+- unless @game.enough_players?
+  p You need #{@game.needed_players} more #{"player".pluralize(@game.needed_players)} to begin.
 
 - unless @game.players.empty?
   = render 'players/list'
 
 - if @game.enough_players?
-  button Go!
-- else
-  p Need #{@game.needed_players} more #{"player".pluralize(@game.needed_players)} to begin.
+  button Start the Game
 
-= render 'players/form'
+= link_to "Add a player", new_game_player_path(@game)

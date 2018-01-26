@@ -3,7 +3,7 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
     @game.save
 
-    redirect_to action: "show", name: @game.name
+    redirect_to new_game_player_path(@game)
   end
 
   def index
@@ -21,6 +21,7 @@ class GamesController < ApplicationController
 
   def join
     @game = Game.find_by_name(params[:name])
+    redirect_to new_game_player_path(@game)
   end
 
   private

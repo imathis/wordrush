@@ -1,1 +1,3 @@
-= form_with "games/show"
+= form_with url: join_path, local: true do |form|
+  = form.text_field :name
+  = form.submit "Join"

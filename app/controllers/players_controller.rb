@@ -1,10 +1,14 @@
 class PlayersController < ApplicationController
   def create
-
     @game = Game.find_by_name(params[:game_name])
-    @player = @game.players.create(player_params(@game))
+    pparams = player_params
+
+    # Split players among two teams
+    pparams[:team] = @game.players.size % 2
+
+    @player = @game.players.create(pparams)
     
-    redirect_to controller: "players", action: "show", id: @player.id
+    redirect_to new_player_word_path(player_id: @player.id)
   end
 
   def new
@@ -27,9 +31,7 @@ class PlayersController < ApplicationController
 
   private
 
-  def player_params(game)
-    p = params.require(:player).permit(:name)
-    p[:team] = game.players.size % 2
-    p
+  def player_params
+    params.require(:player).permit(:name)
   end
 end

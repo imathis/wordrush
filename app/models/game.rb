@@ -5,6 +5,10 @@ class Game < ApplicationRecord
     name
   end
 
+  def game_name
+    name
+  end
+
   def minimum_players
     4
   end
