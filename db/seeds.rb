@@ -15,41 +15,19 @@ def self.short_code
   short
 end
 
-Game.create!(
-  name: short_code
-  ).players.create!([
-    {
-      name: "Josh",
-      game_id: short_code,
-      admin: true,
-      score: 5,
-      duration: 150,
-      team: 0
-    },
-    {
-      name: "Amy",
-      game_id: short_code,
-      admin: false,
-      score: 7,
-      duration: 160,
-      team: 1
-    },
-    {
-      name: "David",
-      game_id: short_code,
-      admin: false,
-      score: 10,
-      duration: 120,
-      team: 0
-    },
-    {
-      name: "Louis",
-      game_id: short_code,
-      admin: false,
-      score: 6,
-      duration: 120,
-      team: 1
-    }
-  ])
+def self.new_player(name, game, options={})
+  {
+    name: name,
+    team: game.teams.size % 2
+  }.merge(options)
+end
+
+game = Game.create!( name: short_code)
+game.players.create!([ 
+  new_player("Josh", game, admin: true),
+  new_player("Amy", game),
+  new_player("David", game),
+  new_player("Louis", game)
+])
  
-p "Created #{Game.count} games"
+p "Created #{Game.count} "+ "game".pluralize(Game.count)
