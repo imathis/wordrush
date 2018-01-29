@@ -1,6 +1,8 @@
 class Game < ApplicationRecord
   has_many :players, dependent: :destroy
 
+  validates :name, presence: true,
+                    length: { minimum: 5, maximum: 5,  }
   def to_param 
     name
   end

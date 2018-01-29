@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   def create
-    @game = Game.new(game_params)
+    @game = Game.new name: short_code, expires_at: DateTime.now + 1
     @game.save
 
     redirect_to new_game_player_path(@game)
@@ -20,13 +20,14 @@ class GamesController < ApplicationController
   end
 
   def join
-    @game = Game.find_by_name(params[:name])
-    redirect_to new_game_player_path(@game)
+    @game = Game.find_by_name(params[:name].upcase)
+
+    if @game
+      redirect_to new_game_player_path(@game)
+    else
+      # TODO: 404 redirection
+      redirect_to "/"
+    end
   end
 
-  private
-
-  def game_params
-    params.require(:game).permit(:name)
-  end
 end
