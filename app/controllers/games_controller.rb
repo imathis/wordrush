@@ -1,7 +1,10 @@
 class GamesController < ApplicationController
   def create
-    @game = Game.new name: short_code, expires_at: DateTime.now + 1
-    @game.save
+    @game = Game.new name: Game.short_code
+
+    while !@game.save do
+      @game.name = Game.short_code
+    end
 
     redirect_to new_game_player_path(@game)
   end

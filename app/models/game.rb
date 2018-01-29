@@ -2,6 +2,7 @@ class Game < ApplicationRecord
   has_many :players, dependent: :destroy
 
   validates :name, presence: true,
+                   uniqueness: true,
                     length: { minimum: 5, maximum: 5,  }
   def to_param 
     name
@@ -9,6 +10,11 @@ class Game < ApplicationRecord
 
   def game_name
     name
+  end
+
+  # Game was created 5 hours ago
+  def expired?
+    created_at.advance(hours: 5) < DateTime.now
   end
 
   def minimum_players
@@ -25,5 +31,21 @@ class Game < ApplicationRecord
 
   def teams
     players.empty? ? [] : players.group_by(&:team)
+  end
+
+  def self.expired_games
+    all.select(&:expired?)
+  end
+
+  # Destroy expired games
+  def self.scrub_games
+    expired_games.map(&:destroy)
+  end
+
+  def self.short_code
+    source = [*?A..?Z] - ['O']
+    short = ''
+    5.times { short << source.sample.to_s }
+    short
   end
 end
