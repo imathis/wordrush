@@ -18,16 +18,31 @@ end
 def self.new_player(name, game, options={})
   {
     name: name,
-    team: game.teams.size % 2
+    team: game.teams.size % 2,
   }.merge(options)
 end
 
+def self.player_word(name)
+  {
+    name: name
+  }
+end
+
+library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill fence candy fire lightning curls olympics patio stapler umbrella)
+
 game = Game.create!( name: short_code)
-game.players.create!([ 
-  new_player("Josh", game, admin: true),
-  new_player("Amy", game),
-  new_player("David", game),
-  new_player("Louis", game)
+
+players = game.players.create!([ 
+  new_player("Michael", game, admin: true),
+  new_player("Jim", game),
+  new_player("Dwight", game),
+  new_player("Stanley", game)
 ])
- 
+
+players.each do |player|
+  5.times do
+    player.words.create!([ player_word(library.pop)])
+  end
+end
+
 p "Created #{Game.count} "+ "game".pluralize(Game.count)
