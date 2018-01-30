@@ -7,6 +7,6 @@ class GamesTest < ApplicationSystemTestCase
 
     click_on "New Game"
 
-    assert_selector "h1", text: "Welcome to WordRush"
+    assert_redirected_to new_game_player_path(game_id: Game.last)
   end
 end
