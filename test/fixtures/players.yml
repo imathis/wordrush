@@ -1,15 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  admin: false
-  score: 1
-  duration: 1
+<% %w(John Susan Emily Joshua).each_with_index do |p, i| %>
+game_one_<%= i %>:
+  name: <%= p %>
   game: one
+<% end %>
 
-two:
-  name: MyString
-  admin: false
-  score: 1
-  duration: 1
+<% %w(Sam Edward Alice).each_with_index do |p, i| %>
+game_two_<%= i %>:
+  name: <%= p %>
   game: two
+<% end %>

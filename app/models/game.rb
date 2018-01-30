@@ -3,7 +3,7 @@ class Game < ApplicationRecord
 
   validates :name, presence: true,
                    uniqueness: true,
-                    length: { minimum: 5, maximum: 5,  }
+                    length: { minimum: 5, maximum: 10,  }
   def to_param 
     name
   end

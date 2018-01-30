@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
+  test "should have unique names" do
+    assert Game.create(name: "UNIQUE")
+    exception = assert_raises(Exception){ Game.create!(name: "UNIQUE") }
+    assert_equal "Validation failed: Name has already been taken", exception.message
+  end
+
   test "should not expire new games" do
     game = Game.new(name: "TESTG")
     game.save
@@ -19,10 +25,4 @@ class GameTest < ActiveSupport::TestCase
 
     assert_not_includes Game.expired_games, game
   end
-
-  test "should have unique names" do
-    Game.new(name: "TESTG").save
-    assert_not Game.new(name: "TESTG").save
-  end
-
 end

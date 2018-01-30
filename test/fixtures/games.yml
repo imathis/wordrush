@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: ONEGA
+  name: GAME1
 
 two:
-  name: TWOGA
+  name: GAME2
+
+three:
+  name: GAME3

@@ -3,12 +3,9 @@ class PlayersController < ApplicationController
     @game = Game.find_by_name(params[:game_name])
     pparams = player_params
 
-    # Split players among two teams
-    pparams[:team] = @game.players.size % 2
-
     @player = @game.players.create(pparams)
     
-    redirect_to new_player_word_path(player_id: @player.id)
+    redirect_to new_player_word_path(@player)
   end
 
   def new
