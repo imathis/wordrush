@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+<% players = %w(one two) %>
+<% words = %w(tub bath bubbles Epsom\ salt Netflix beach sand sun) %>
 
-one:
-  name: bath
-  duration: 0
-  player: one
-
-two:
-  name: sunset
-  duration: 0
-  player: two
+<% players.each do |p| %>
+  <% 1.upto(5) do |w| %>
+    <% unless words.empty? %>
+      player_<%= p %>_word_<%= w %>:
+        name: <%= words.pop %>
+        player: <%= p %>
+      <% end %>
+<% end %>
+<% end %>
