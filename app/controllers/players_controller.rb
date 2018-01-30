@@ -5,6 +5,7 @@ class PlayersController < ApplicationController
 
     # Split players among two teams
     pparams[:team] = @game.players.size % 2
+    pparams[:admin] = @game.players.size == 1
 
     @player = @game.players.create(pparams)
     

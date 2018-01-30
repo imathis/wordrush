@@ -3,7 +3,7 @@
 <% %w(John Susan Emily Joshua).each_with_index do |p, i| %>
 game_one_<%= i %>:
   name: <%= p %>
-  admin: <% i == 0 %>
+  admin: <%= i == 0 %>
   team: <%= i % 2 %>
   game: one
 <% end %>
@@ -11,7 +11,7 @@ game_one_<%= i %>:
 <% %w(Sam Edward Alice).each_with_index do |p, i| %>
 game_two_<%= i %>:
   name: <%= p %>
-  admin: <% i == 0 %>
+  admin: <%= i == 0 %>
   team: <%= i % 2 %>
   game: two
 <% end %>
