@@ -49,12 +49,15 @@ class Game < ApplicationRecord
     minimum_players - players.size
   end
 
-  def start
-    @started = ready?
+  def started?
+    started == true
   end
 
-  def started?
-    @started == true
+  def start
+    if ready? && !started?
+      update(started: true)
+    end
+    started?
   end
 
   def self.expired_games

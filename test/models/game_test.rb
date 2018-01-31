@@ -54,6 +54,5 @@ class GameTest < ActiveSupport::TestCase
   test "should have a play order" do
     game = Game.find_by_name('GAME_READY')
     assert_equal game.play_order, game.play_order
-    binding.pry
   end
 end

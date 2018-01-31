@@ -26,11 +26,28 @@ class GamesController < ApplicationController
     @game = Game.find_by_name(params[:name].upcase)
 
     if @game
-      redirect_to new_game_player_path(@game)
+      unless @game.started?
+        redirect_to new_game_player_path(@game)
+      else
+        # TODO: Redirect Game has already started, begin a new game.
+        redirect_to "/"
+      end
     else
       # TODO: 404 redirection
       redirect_to "/"
     end
+  end
+
+  def start
+    @game = Game.find_by_name(params[:name].upcase)
+
+    if @game.start
+      redirect_to new_game_player_path(@game)
+    else
+      # TODO: 404 redirection
+      redirect_to game_path
+    end
+
   end
 
 end
