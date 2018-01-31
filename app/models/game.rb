@@ -3,13 +3,33 @@ class Game < ApplicationRecord
 
   validates :name, presence: true,
                    uniqueness: true,
-                    length: { minimum: 5, maximum: 10,  }
+                    length: { minimum: 5, maximum: 20,  }
+  @started = false
+
   def to_param 
     name
   end
 
   def game_name
     name
+  end
+
+  def teams
+    players.empty? ? [] : players.group_by(&:team)
+  end
+
+  def words
+    players.map{ |p| p.words }.flatten
+  end
+
+  def play_order
+    @player_order ||= players.shuffle
+  end
+
+  def ready?
+    # Enough players here and all players are ready
+    # (they have entered all their words)
+    enough_players? && !players.map(&:ready?).include?(false)
   end
 
   # Game was created 5 hours ago
@@ -29,8 +49,12 @@ class Game < ApplicationRecord
     minimum_players - players.size
   end
 
-  def teams
-    players.empty? ? [] : players.group_by(&:team)
+  def start
+    @started = ready?
+  end
+
+  def started?
+    @started == true
   end
 
   def self.expired_games

@@ -1,10 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: GAME1
+  name: GAME_READY
 
 two:
-  name: GAME2
+  name: GAME_NOT_READY
 
 three:
-  name: GAME3
+  name: GAME_EMPTY

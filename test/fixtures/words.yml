@@ -1,13 +1,20 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-<% players = %w(one two) %>
-<% words = %w(tub bath bubbles Epsom\ salt Netflix beach sand sun) %>
 
-<% players.each do |p| %>
-  <% 1.upto(5) do |w| %>
-    <% unless words.empty? %>
-      player_<%= p %>_word_<%= w %>:
-        name: <%= words.pop %>
-        player: <%= p %>
-      <% end %>
-<% end %>
-<% end %>
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+<% library = %w(tub bath bubbles Epsom\ salt Netflix beach sand sunset relaxed vacation test study college professor spring\ break sedan truck van sports\ car atv) %>
+
+<% def add_words(game, players, words)
+  word_data = {}
+  1.upto(players).each do |p|
+    player_id = "game_#{game}_player_#{p}"
+
+    words.shift(5).each_with_index do |w, index|
+      word_data["#{player_id}_word_#{index + 1}"] = {
+        "name" => w, "player" => player_id
+      }
+    end
+  end
+  return word_data.to_yaml
+end %>
+
+<%= add_words(1, 4, library) %>
+<%= add_words(1, 3, library.first(14)) %>

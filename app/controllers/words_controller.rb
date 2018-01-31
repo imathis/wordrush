@@ -9,7 +9,7 @@ class WordsController < ApplicationController
     @player = Player.find(params[:player_id])
     @player.words.create(word_params)
     
-    if @player.words.size == @player.word_limit
+    if @player.ready?
       redirect_to game_path(@player.game)
     else
       redirect_to new_player_word_path(player_id: @player.id)

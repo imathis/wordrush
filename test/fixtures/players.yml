@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 <% %w(John Susan Emily Joshua).each_with_index do |p, i| %>
-game_one_<%= i %>:
+game_1_player_<%= i + 1 %>:
   name: <%= p %>
   admin: <%= i == 0 %>
   team: <%= i % 2 %>
@@ -9,7 +9,7 @@ game_one_<%= i %>:
 <% end %>
 
 <% %w(Sam Edward Alice).each_with_index do |p, i| %>
-game_two_<%= i %>:
+game_2_player_<%= i + 1 %>:
   name: <%= p %>
   admin: <%= i == 0 %>
   team: <%= i % 2 %>

@@ -10,7 +10,13 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "join game" do
-    post join_path, params: { name: 'GAME1' }
-    assert_redirected_to new_game_player_path(game_name: 'GAME1'), "Redirects to new Player for Game \"GAME1\""
+    post join_path, params: { name: 'GAME_READY' }
+    assert_redirected_to new_game_player_path(game_name: 'GAME_READY'), "Redirects to new Player for Game \"GAME_READY\""
+  end
+
+  test "should not join started game" do
+    game = Game.find_by_name('GAME_READY')
+    #post join_path, params: { name: 'GAME_READY' }
+    #assert_redirected_to new_game_player_path(game_name: 'GAME_READY'), "Redirects to new Player for Game \"GAME_READY\""
   end
 end

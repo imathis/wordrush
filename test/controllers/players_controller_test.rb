@@ -5,4 +5,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     post game_players_path(Game.last), params: { player: { name: 'Player1' }}
     assert_redirected_to new_player_word_path(player_id: Player.last.id), "Redirects to new Word for Player \"#{Player.last.name}\""
   end
+
+  test "should not be able to join a game which has started" do
+    
+  end
 end
