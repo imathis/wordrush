@@ -3,6 +3,7 @@ class Player < ApplicationRecord
 
   before_create :choose_team
   before_create :set_admin
+  before_create :name_exists?
 
   has_many :words, dependent: :destroy
 
@@ -22,6 +23,12 @@ class Player < ApplicationRecord
 
   def ready?
     words_left == 0
+  end
+
+  def name_exists?
+    if game.players.map(&:name).map(&:downcase).include?(name.downcase)
+      raise NameError.new("Someone named '#{name}' has already joined. Please enter a different name.")
+    end
   end
 
   def choose_team
