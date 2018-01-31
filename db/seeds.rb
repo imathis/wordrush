@@ -15,10 +15,9 @@ def self.short_code
   short
 end
 
-def self.new_player(name, game, options={})
+def self.new_player(name, options={})
   {
-    name: name,
-    team: game.teams.size % 2,
+    name: name
   }.merge(options)
 end
 
@@ -33,10 +32,10 @@ library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill f
 game = Game.create!( name: short_code)
 
 players = game.players.create!([ 
-  new_player("Michael", game, admin: true),
-  new_player("Jim", game),
-  new_player("Dwight", game),
-  new_player("Stanley", game)
+  new_player("Michael"),
+  new_player("Jim"),
+  new_player("Dwight"),
+  new_player("Stanley")
 ])
 
 players.each do |player|
