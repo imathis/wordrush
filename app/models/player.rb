@@ -5,6 +5,8 @@ class Player < ApplicationRecord
   before_create :set_admin
   before_create :name_exists?
 
+  has_many :turns
+  has_many :rounds, through: :turns
   has_many :words, dependent: :destroy
 
   validates :name, presence: true,
@@ -32,7 +34,7 @@ class Player < ApplicationRecord
   end
 
   def choose_team
-    self.team = game.players.size % 2
+    self.team = game.players.size % game.team_count
   end
 
   def set_admin

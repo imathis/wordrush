@@ -32,19 +32,25 @@ def self.add_words(players, words)
   end
 end
 
-library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill fence candy fire lightning curls olympics patio stapler umbrella)
+def self.add_game(name, players, words)
+  game = Game.create!( name: name)
+  add_players(game, players)
+  add_words(game.players, words)
+  game
+end
+
+library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill fence candy fire lightning curls olympics patio stapler umbrella tub bath bubbles Epsom\ salt Netflix)
 
 # Create a game which is ready to be played
 # It has four players, each with five words
-game = Game.create!( name: Game.short_code)
-add_players(game, %w(Michael Jim Dwight Stanley))
-add_words(game.players, library)
+add_game('GAME_READY', %w(Michael Jim Dwight Stanley), library)
+
+game = add_game('GAME_STARTED', %w(Hulk Storm Spidey Black\ Widow Thor), library)
+game.rounds.create()
 
 # Create a game which is not ready
 # It only has three players
 # The last player has only four words
-game = Game.create!( name: Game.short_code)
-add_players(game, %w(Susan Alice Jacob))
-add_words(game.players, library.first(14))
+add_game('GAME2', %w(Susan Alice Jacob), library.first(14))
 
 p "Created #{Game.count} "+ "game".pluralize(Game.count)

@@ -4,8 +4,8 @@ class PlayersController < ApplicationController
     pparams = player_params
 
     @player = @game.players.create(pparams)
-    
     redirect_to new_player_word_path(@player)
+    
   end
 
   def new

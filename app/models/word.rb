@@ -1,5 +1,6 @@
 class Word < ApplicationRecord
   belongs_to :player
+  has_and_belongs_to_many :plays
 
   validates :name, presence: true,
                     length: { minimum: 2 }

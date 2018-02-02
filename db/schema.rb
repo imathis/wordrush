@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131171209) do
+ActiveRecord::Schema.define(version: 20180202200107) do
 
   create_table "games", force: :cascade do |t|
     t.string "name"
+    t.datetime "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "started", default: false
   end
 
   create_table "players", force: :cascade do |t|
@@ -24,11 +24,41 @@ ActiveRecord::Schema.define(version: 20180131171209) do
     t.boolean "admin"
     t.integer "score"
     t.integer "duration"
+    t.integer "team"
     t.integer "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "team"
     t.index ["game_id"], name: "index_players_on_game_id"
+  end
+
+  create_table "plays", force: :cascade do |t|
+    t.integer "turn_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_plays_on_player_id"
+    t.index ["turn_id"], name: "index_plays_on_turn_id"
+  end
+
+  create_table "plays_words", id: false, force: :cascade do |t|
+    t.integer "word_id"
+    t.integer "play_id"
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_rounds_on_game_id"
+  end
+
+  create_table "turns", force: :cascade do |t|
+    t.integer "round_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_turns_on_player_id"
+    t.index ["round_id"], name: "index_turns_on_round_id"
   end
 
   create_table "words", force: :cascade do |t|

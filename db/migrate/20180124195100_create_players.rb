@@ -5,6 +5,7 @@ class CreatePlayers < ActiveRecord::Migration[5.1]
       t.boolean :admin
       t.integer :score
       t.integer :duration
+      t.integer :team
       t.references :game, foreign_key: true
 
       t.timestamps

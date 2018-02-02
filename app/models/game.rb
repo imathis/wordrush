@@ -1,9 +1,18 @@
 class Game < ApplicationRecord
   has_many :players, dependent: :destroy
+  has_many :rounds, dependent: :destroy
+  has_many :words, through: :players
+  has_many :turns, through: :rounds
 
   validates :name, presence: true,
                    uniqueness: true,
-                    length: { minimum: 5, maximum: 20,  }
+                    length: { minimum: 5, maximum: 20 }
+
+  # How many teams should there be?
+  def team_count
+    2
+  end
+
   def to_param 
     name
   end
@@ -14,10 +23,6 @@ class Game < ApplicationRecord
 
   def teams
     players.empty? ? [] : players.group_by(&:team)
-  end
-
-  def words
-    players.map{ |p| p.words }.flatten
   end
 
   def play_order
@@ -48,14 +53,34 @@ class Game < ApplicationRecord
   end
 
   def started?
-    started == true
+    !rounds.empty?
   end
 
-  def start
-    if ready? && !started?
-      update(started: true)
+  def round_players
+    turns = rounds.map(&:turns)
+    turns.empty? ? turns : turns.flatten.map(&:player)
+  end
+
+  def next_team_id
+    round_players.size % team_count
+  end
+
+  def team_turns(team)
+    if round_players.empty?
+      0
+    else
+      round_players.select { |p| p.team == team }
     end
-    started?
+  end
+
+  def next_player
+    team_id = next_team_id
+    team_players = teams[team_id]
+
+    # How many turns for this team?
+    plays = team_turns(team_id).size
+
+    team_players[plays % team_players.size]
   end
 
   def self.expired_games
