@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20180202200107) do
     t.integer "score"
     t.integer "duration"
     t.integer "team"
+    t.boolean "ready", default: false
     t.integer "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -32,11 +33,13 @@ ActiveRecord::Schema.define(version: 20180202200107) do
   end
 
   create_table "plays", force: :cascade do |t|
+    t.integer "round_id"
     t.integer "turn_id"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_plays_on_player_id"
+    t.index ["round_id"], name: "index_plays_on_round_id"
     t.index ["turn_id"], name: "index_plays_on_turn_id"
   end
 
@@ -53,10 +56,12 @@ ActiveRecord::Schema.define(version: 20180202200107) do
   end
 
   create_table "turns", force: :cascade do |t|
-    t.integer "round_id"
+    t.integer "game_id"
     t.integer "player_id"
+    t.integer "round_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_turns_on_game_id"
     t.index ["player_id"], name: "index_turns_on_player_id"
     t.index ["round_id"], name: "index_turns_on_round_id"
   end

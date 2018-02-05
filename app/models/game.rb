@@ -1,8 +1,8 @@
 class Game < ApplicationRecord
   has_many :players, dependent: :destroy
   has_many :rounds, dependent: :destroy
+  has_many :turns, dependent: :destroy
   has_many :words, through: :players
-  has_many :turns, through: :rounds
 
   validates :name, presence: true,
                    uniqueness: true,
@@ -25,14 +25,10 @@ class Game < ApplicationRecord
     players.empty? ? [] : players.group_by(&:team)
   end
 
-  def play_order
-    @player_order ||= players.shuffle
-  end
-
   def ready?
     # Enough players here and all players are ready
     # (they have entered all their words)
-    enough_players? && !players.map(&:ready?).include?(false)
+    enough_players? && players.reject(&:ready).empty?
   end
 
   # Game was created 5 hours ago
@@ -56,20 +52,19 @@ class Game < ApplicationRecord
     !rounds.empty?
   end
 
-  def round_players
-    turns = rounds.map(&:turns)
-    turns.empty? ? turns : turns.flatten.map(&:player)
+  def players_played
+    turns.empty? ? turns : turns.map(&:player)
   end
 
   def next_team_id
-    round_players.size % team_count
+    players_played.size % team_count
   end
 
   def team_turns(team)
-    if round_players.empty?
+    if players_played.empty?
       0
     else
-      round_players.select { |p| p.team == team }
+      players_played.select { |p| p.team == team }.size
     end
   end
 
@@ -78,9 +73,29 @@ class Game < ApplicationRecord
     team_players = teams[team_id]
 
     # How many turns for this team?
-    plays = team_turns(team_id).size
+    plays = team_turns(team_id)
 
     team_players[plays % team_players.size]
+  end
+
+  def start
+    current_round || new_round
+  end
+
+  def current_turn
+    turns.last
+  end
+
+  def current_player
+    current_turn.player
+  end
+
+  def new_round
+    rounds.create()
+  end
+
+  def current_round
+    rounds.last
   end
 
   def self.expired_games

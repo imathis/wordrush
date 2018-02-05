@@ -43,14 +43,17 @@ library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill f
 
 # Create a game which is ready to be played
 # It has four players, each with five words
-add_game('GAME_READY', %w(Michael Jim Dwight Stanley), library)
+add_game('GAME_READY', %w(Michael Jim Dwight Stanley), library.dup)
+add_game('GAME_NOT_READY', %w(Susan Alice Jacob), library.first(14))
 
-game = add_game('GAME_STARTED', %w(Hulk Storm Spidey Black\ Widow Thor), library)
-game.rounds.create()
+game = add_game('GAME_STARTED', %w(Hulk Storm Spidey Black\ Widow Thor), library.dup)
+round = game.start            # add a round
+round.start_turn              # add a turn
+turn = Game.last.current_turn # Needs a fresh model
+5.times { turn.play_word }    # play five words
 
 # Create a game which is not ready
 # It only has three players
 # The last player has only four words
-add_game('GAME2', %w(Susan Alice Jacob), library.first(14))
 
 p "Created #{Game.count} "+ "game".pluralize(Game.count)

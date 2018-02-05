@@ -6,6 +6,7 @@ class Player < ApplicationRecord
   before_create :name_exists?
 
   has_many :turns
+  has_many :plays
   has_many :rounds, through: :turns
   has_many :words, dependent: :destroy
 
@@ -23,10 +24,6 @@ class Player < ApplicationRecord
     word_limit - words.size
   end
 
-  def ready?
-    words_left == 0
-  end
-
   def name_exists?
     if game.players.map(&:name).map(&:downcase).include?(name.downcase)
       raise NameError.new("Someone named '#{name}' has already joined. Please enter a different name.")
@@ -40,4 +37,5 @@ class Player < ApplicationRecord
   def set_admin
     self.admin = game.players.size == 0
   end
+
 end
