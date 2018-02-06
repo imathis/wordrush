@@ -36,16 +36,14 @@ ActiveRecord::Schema.define(version: 20180202200107) do
     t.integer "round_id"
     t.integer "turn_id"
     t.integer "player_id"
+    t.integer "word_id"
+    t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_plays_on_player_id"
     t.index ["round_id"], name: "index_plays_on_round_id"
     t.index ["turn_id"], name: "index_plays_on_turn_id"
-  end
-
-  create_table "plays_words", id: false, force: :cascade do |t|
-    t.integer "word_id"
-    t.integer "play_id"
+    t.index ["word_id"], name: "index_plays_on_word_id"
   end
 
   create_table "rounds", force: :cascade do |t|
@@ -68,7 +66,6 @@ ActiveRecord::Schema.define(version: 20180202200107) do
 
   create_table "words", force: :cascade do |t|
     t.string "name"
-    t.integer "duration"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

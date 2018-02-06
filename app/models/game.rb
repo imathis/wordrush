@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   has_many :rounds, dependent: :destroy
   has_many :turns, dependent: :destroy
   has_many :words, through: :players
+  has_many :plays, through: :rounds
 
   validates :name, presence: true,
                    uniqueness: true,

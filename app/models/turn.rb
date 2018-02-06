@@ -11,13 +11,25 @@ class Turn < ApplicationRecord
   end
 
   def next_word
-    (game.words - words).shuffle.first
+    (game.words - played_words).shuffle.first
+  end
+
+  def played_words
+    complete = plays.where.not(duration: nil).order(:duration)
+    complete.empty? ? [] : complete.map(&:word)
+  end
+
+  def finish_word
+    if p = plays.last
+      p.finish
+    end
   end
 
   def play_word
-    play = plays.create(round: round, player: player)
-    play.words << next_word
-    play
+    finish_word
+
+    if w = next_word
+      plays.create(game: game, round: round, player: player, word: w)
+    end
   end
-  
 end

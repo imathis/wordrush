@@ -12,6 +12,7 @@ class Player < ApplicationRecord
 
   validates :name, presence: true,
                     length: { minimum: 2 }
+
   def player_id
     id
   end

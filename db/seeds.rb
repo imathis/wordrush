@@ -39,6 +39,31 @@ def self.add_game(name, players, words)
   game
 end
 
+def self.play_turn(game, seconds=60)
+  turn = game.current_turn
+  turn_limit = 1000 * seconds
+  turn_duration = 0
+
+  while turn_duration < turn_limit
+    play_duration = (4000..15000).to_a.sample
+    turn_duration += play_duration
+
+    if Game.last.current_round.plays_left?
+      turn.plays.create({
+        word: Game.last.current_turn.next_word,
+        round: turn.round,
+        player: turn.player,
+        duration: turn_limit < turn_duration ? nil : play_duration
+      })
+    end
+  end
+
+  # If player has hit the limit, start a new turn
+  if 60000 <= turn_duration
+    Game.last.current_round.start_turn
+  end
+end
+
 library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill fence candy fire lightning curls olympics patio stapler umbrella tub bath bubbles Epsom\ salt Netflix)
 
 # Create a game which is ready to be played
@@ -46,11 +71,17 @@ library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill f
 add_game('GAME_READY', %w(Michael Jim Dwight Stanley), library.dup)
 add_game('GAME_NOT_READY', %w(Susan Alice Jacob), library.first(14))
 
-game = add_game('GAME_STARTED', %w(Hulk Storm Spidey Black\ Widow Thor), library.dup)
-round = game.start            # add a round
-round.start_turn              # add a turn
-turn = Game.last.current_turn # Needs a fresh model
-5.times { turn.play_word }    # play five words
+game = add_game('GAME_STARTED', %w(John Paul George Ringo), library.dup)
+game.start.start_turn
+play_turn Game.last, 40
+
+
+game = add_game('TURN_DONE', %w(Hulk Storm Spidey Black\ Widow Thor), library.dup)
+game.start.start_turn
+
+while Game.last.current_round.plays_left?
+  play_turn Game.last
+end
 
 # Create a game which is not ready
 # It only has three players
