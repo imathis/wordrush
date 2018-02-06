@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20180202200107) do
 
   create_table "games", force: :cascade do |t|
     t.string "name"
+    t.boolean "one_device"
     t.datetime "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -4,12 +4,11 @@ class PlayersController < ApplicationController
     pparams = player_params
 
     @player = @game.players.create(pparams)
+    unless @game.one_device
+      session[:current_player_id] = @player.id
+    end
     redirect_to new_player_word_path(@player)
     
-  end
-
-  def new
-    @game = Game.find_by_name(params[:game_name])
   end
 
   def index

@@ -33,9 +33,9 @@ def self.add_words(players, words)
 end
 
 def self.add_game(name, players, words)
-  game = Game.create!( name: name)
-  add_players(game, players)
-  add_words(game.players, words)
+  game = Game.create! name: name, one_device: true
+  add_players game, players
+  add_words game.players, words
   game
 end
 

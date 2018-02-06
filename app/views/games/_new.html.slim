@@ -1,2 +1,7 @@
 = form_with scope: :game, url: games_path, local: true do |form|
-  = form.submit "New Game"
+  = form.hidden_field :one_device, value: true
+  = form.submit "Pass and Play"
+
+= form_with scope: :game, url: games_path, local: true do |form|
+  = form.hidden_field :one_device, value: false
+  = form.submit "Multi Screen"

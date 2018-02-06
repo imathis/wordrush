@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   def create
-    @game = Game.new name: Game.short_code
+    @game = Game.new name: Game.short_code, one_device: game_params[:one_device]
 
     while !@game.save do
       @game.name = Game.short_code
@@ -11,6 +11,9 @@ class GamesController < ApplicationController
 
   def index
     @games = Game.all
+  end
+
+  def type
   end
 
   def show
@@ -50,4 +53,9 @@ class GamesController < ApplicationController
 
   end
 
+  private
+
+  def game_params
+    params.require(:game).permit(:one_device)
+  end
 end
