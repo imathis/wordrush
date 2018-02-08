@@ -6,8 +6,25 @@ class Turn < ApplicationRecord
   has_many :words, through: :plays
 
   # length in miliseconds
-  def length
-    62000
+  def time_limit
+    60
+  end
+
+  def new?
+    plays.empty?
+  end
+
+  def time_elapsed
+    Time.now - plays.first.created_at
+  end
+
+  def time_remaining
+    t = (time_limit - time_elapsed).floor
+    t < 0 ? 0 : t
+  end
+
+  def finished?
+    next_word.nil? || time_remaining <= 0
   end
 
   def next_word
@@ -15,7 +32,7 @@ class Turn < ApplicationRecord
   end
 
   def played_words
-    complete = plays.where.not(duration: nil).order(:duration)
+    complete = plays.ended.order(:duration)
     complete.empty? ? [] : complete.map(&:word)
   end
 
@@ -23,6 +40,10 @@ class Turn < ApplicationRecord
     if p = plays.last
       p.finish
     end
+  end
+
+  def current_word
+    plays.last.word
   end
 
   def play_word

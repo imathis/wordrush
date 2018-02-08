@@ -6,6 +6,7 @@ class CreatePlays < ActiveRecord::Migration[5.1]
       t.references :player, foreign_key: true
       t.references :word, foreign_key: true
       t.integer :duration
+      t.boolean :guessed
 
       t.timestamps
     end

@@ -17,12 +17,12 @@ class Player < ApplicationRecord
     id
   end
 
-  def word_limit
-    5
+  def words_left
+    game.player_word_limit - words.size
   end
 
-  def words_left
-    word_limit - words.size
+  def ready?
+    words_left == 0
   end
 
   def name_exists?

@@ -29,12 +29,20 @@ class Game < ApplicationRecord
   def ready?
     # Enough players here and all players are ready
     # (they have entered all their words)
-    enough_players? && players.reject(&:ready).empty?
+    enough_players? && players_ready?
+  end
+
+  def players_ready?
+    players.reject(&:ready?).empty?
+  end
+
+  def player_word_limit
+    5
   end
 
   # Game was created 5 hours ago
   def expired?
-    created_at.advance(hours: 5) < DateTime.now
+    created_at.advance(hours: 5) < Time.now
   end
 
   def minimum_players
@@ -83,6 +91,10 @@ class Game < ApplicationRecord
     current_round || new_round
   end
 
+  def current_round
+    rounds.last
+  end
+
   def current_turn
     turns.last
   end
@@ -93,10 +105,6 @@ class Game < ApplicationRecord
 
   def new_round
     rounds.create()
-  end
-
-  def current_round
-    rounds.last
   end
 
   def self.expired_games

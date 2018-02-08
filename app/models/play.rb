@@ -4,11 +4,14 @@ class Play < ApplicationRecord
   belongs_to :player
   belongs_to :word
 
-  scope :complete, -> { where.not duration: nil }
+  scope :ended, -> { where guessed: true }
 
-  def finish
+  def finish(correct)
     if duration.nil?
-      update duration: ( (Time.now - created_at) * 1000 ).round
+      update({
+        duration: ( (Time.now.utc - created_at) * 1000 ).round,
+        guessed: correct
+      })
     end
   end
 

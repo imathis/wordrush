@@ -5,11 +5,31 @@ class Round < ApplicationRecord
   has_many :players, through: :turns
   has_many :words, through: :plays
 
-  def plays_left?
-    plays.complete.size < game.words.size
+  def new?
+    turns.empty?
+  end
+
+  def turn_active?
+    !new && !finished
+  end
+
+  def finished?
+    plays.ended.size == game.words.size
   end
 
   def start_turn
     turns.create(game: game, player: game.next_player)
+  end
+
+  def current_turn
+    turns.last
+  end
+
+  def current_word
+    plays.last.word
+  end
+
+  def number
+    game.rounds.find_index(self) + 1
   end
 end

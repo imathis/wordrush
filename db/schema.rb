@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20180202200107) do
     t.integer "score"
     t.integer "duration"
     t.integer "team"
-    t.boolean "ready", default: false
     t.integer "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,6 +38,7 @@ ActiveRecord::Schema.define(version: 20180202200107) do
     t.integer "player_id"
     t.integer "word_id"
     t.integer "duration"
+    t.boolean "guessed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_plays_on_player_id"

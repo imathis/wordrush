@@ -39,29 +39,43 @@ def self.add_game(name, players, words)
   game
 end
 
-def self.play_turn(game, seconds=60)
+def self.play_turn(game, limit=60)
   turn = game.current_turn
-  turn_limit = 1000 * seconds
+  turn_start = Time.now
   turn_duration = 0
+  play_start = turn_start
+  ended = false
 
-  while turn_duration < turn_limit
-    play_duration = (4000..15000).to_a.sample
-    turn_duration += play_duration
+  while turn_duration < limit
+    play = (4000..15000).to_a.sample / 1000.to_f
 
-    if Game.last.current_round.plays_left?
+    if limit < play + turn_duration
+      play = limit - turn_duration
+      ended = true
+    end
+
+    turn_duration += play
+    play_stop = play_start.advance(seconds: play)
+
+    unless Game.last.current_round.finished?
       turn.plays.create({
         word: Game.last.current_turn.next_word,
         round: turn.round,
         player: turn.player,
-        duration: turn_limit < turn_duration ? nil : play_duration
+        created_at: play_start,
+        updated_at: play_stop,
+        duration: play,
+        guessed: !ended
       })
     end
+
+    play_start = play_stop
   end
 
   # If player has hit the limit, start a new turn
-  if 60000 <= turn_duration
-    Game.last.current_round.start_turn
-  end
+  #if 60000 <= turn_duration
+    #Game.last.current_round.start_turn
+  #end
 end
 
 library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill fence candy fire lightning curls olympics patio stapler umbrella tub bath bubbles Epsom\ salt Netflix)
@@ -79,7 +93,7 @@ play_turn Game.last, 40
 game = add_game('TURN_DONE', %w(Hulk Storm Spidey Black\ Widow Thor), library.dup)
 game.start.start_turn
 
-while Game.last.current_round.plays_left?
+while !Game.last.current_round.finished?
   play_turn Game.last
 end
 

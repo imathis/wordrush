@@ -5,7 +5,9 @@ h1 Welcome to WordRush
 - unless @game.players.empty?
   = render 'players/list'
 
-- if @game.enough_players?
-  button Start the Game
+- if @game.one_device
+  p= link_to "Add a player", new_game_player_path(@game)
 
-= link_to "Add a player", new_game_player_path(@game)
+- if @game.ready?
+  = render "rounds/form"
+

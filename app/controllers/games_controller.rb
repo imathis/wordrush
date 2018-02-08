@@ -32,7 +32,7 @@ class GamesController < ApplicationController
       unless @game.started?
         redirect_to new_game_player_path(@game)
       else
-        # TODO: Redirect Game has already started, begin a new game.
+        flash[:info] = "Sorry, you can't join a game which has already begun. Start a new game?"
         redirect_to "/"
       end
     else
