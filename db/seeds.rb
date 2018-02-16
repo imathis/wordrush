@@ -40,12 +40,7 @@ def self.add_game(name, players, words)
 end
 
 def self.play_turn(game, limit=60)
-  turn = Game.last.current_turn
-
-  if turn.finished?
-    turn = turn.round.start_turn
-  end
-
+  turn = game.current_turn
   turn_start = Time.now
   turn_duration = 0
   play_start = turn_start
@@ -95,9 +90,10 @@ play_turn Game.last, 55
 
 
 game = add_game('TURN_DONE', %w(Hulk Storm Spidey Black\ Widow Thor), library.dup)
-game.start.start_turn
+game.start
 
 while !Game.last.current_round.finished?
+  Game.last.current_round.start_turn
   play_turn Game.last
 end
 
