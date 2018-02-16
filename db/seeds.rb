@@ -40,7 +40,12 @@ def self.add_game(name, players, words)
 end
 
 def self.play_turn(game, limit=60)
-  turn = game.current_turn
+  turn = Game.last.current_turn
+
+  if turn.finished?
+    turn = turn.round.start_turn
+  end
+
   turn_start = Time.now
   turn_duration = 0
   play_start = turn_start
@@ -75,10 +80,6 @@ def self.play_turn(game, limit=60)
     count += 1
   end
 
-  # If player has hit the limit, start a new turn
-  #if 60000 <= turn_duration
-    #Game.last.current_round.start_turn
-  #end
 end
 
 library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill fence candy fire lightning curls olympics patio stapler umbrella tub bath bubbles Epsom\ salt Netflix)
