@@ -23,8 +23,6 @@ ActiveRecord::Schema.define(version: 20180202200107) do
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.boolean "admin"
-    t.integer "score"
-    t.integer "duration"
     t.integer "team"
     t.integer "game_id"
     t.datetime "created_at", null: false
@@ -37,8 +35,9 @@ ActiveRecord::Schema.define(version: 20180202200107) do
     t.integer "turn_id"
     t.integer "player_id"
     t.integer "word_id"
-    t.integer "duration"
+    t.float "duration"
     t.boolean "guessed"
+    t.integer "index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_plays_on_player_id"

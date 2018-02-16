@@ -2,10 +2,12 @@ h1 Results
 
 h3 Words guessed:
 ul
-  - @turn.plays.ended.each do |play|
-    li= play.word.name
-h4 Word missed:
-= @turn.plays.last.word.name
-br
-= @turn.plays.size
+  - @turn.plays.complete.each do |play|
+    li
+      strong= play.word.name
+      span= play.duration
+      = render partial: "score", locals: { play: play, score: play.score }
+
+= @turn.player.team_score
 p Time left: #{@turn.time_remaining}
+p = @turn.player.points

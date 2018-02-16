@@ -31,6 +31,14 @@ class Player < ApplicationRecord
     end
   end
 
+  def team_score
+    game.team_scores[team]
+  end
+
+  def points
+    plays.complete.map { |p| p.score[:total] }.sum
+  end
+
   def choose_team
     self.team = game.players.size % game.team_count
   end

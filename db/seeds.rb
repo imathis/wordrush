@@ -45,9 +45,10 @@ def self.play_turn(game, limit=60)
   turn_duration = 0
   play_start = turn_start
   ended = false
+  count = 0
 
   while turn_duration < limit
-    play = (4000..15000).to_a.sample / 1000.to_f
+    play = (3500..15000).to_a.sample / 1000.to_f
 
     if limit < play + turn_duration
       play = limit - turn_duration
@@ -65,11 +66,13 @@ def self.play_turn(game, limit=60)
         created_at: play_start,
         updated_at: play_stop,
         duration: play,
-        guessed: !ended
+        guessed: !ended,
+        index: count
       })
     end
 
     play_start = play_stop
+    count += 1
   end
 
   # If player has hit the limit, start a new turn
@@ -87,7 +90,7 @@ add_game('GAME_NOT_READY', %w(Susan Alice Jacob), library.first(14))
 
 game = add_game('GAME_STARTED', %w(John Paul George Ringo), library.dup)
 game.start.start_turn
-play_turn Game.last, 40
+play_turn Game.last, 55
 
 
 game = add_game('TURN_DONE', %w(Hulk Storm Spidey Black\ Widow Thor), library.dup)

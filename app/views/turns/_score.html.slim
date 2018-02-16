@@ -1,0 +1,10 @@
+- if score[:speed_bonus] || score[:word_bonus]
+  span<> 
+   |(
+  - if score[:speed_bonus]
+    '+
+    span.speed-bonus=> score[:speed_bonus]
+  - if score[:word_bonus]
+    '+
+    span.word-bonus=> score[:word_bonus]
+  span> )

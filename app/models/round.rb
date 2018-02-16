@@ -10,11 +10,11 @@ class Round < ApplicationRecord
   end
 
   def turn_active?
-    !new && !finished
+    !new? && !finished?
   end
 
   def finished?
-    plays.ended.size == game.words.size
+    words_remaining == 0
   end
 
   def start_turn
@@ -27,6 +27,10 @@ class Round < ApplicationRecord
 
   def current_word
     plays.last.word
+  end
+
+  def words_remaining
+    game.words.size - plays.complete.size
   end
 
   def number

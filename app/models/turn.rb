@@ -32,7 +32,7 @@ class Turn < ApplicationRecord
   end
 
   def played_words
-    complete = plays.ended.order(:duration)
+    complete = plays.complete.order(:duration)
     complete.empty? ? [] : complete.map(&:word)
   end
 
@@ -46,11 +46,19 @@ class Turn < ApplicationRecord
     plays.last.word
   end
 
+  def words_remaining
+    round.words_remaining
+  end
+
+  def score
+    plays.complete.map(&:score)
+  end
+
   def play_word
     finish_word
 
     if w = next_word
-      plays.create(game: game, round: round, player: player, word: w)
+      plays.create(game: game, round: round, player: player, word: w, index: plays.size)
     end
   end
 end

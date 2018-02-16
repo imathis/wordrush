@@ -24,7 +24,7 @@ class RoundsController < ApplicationController
   end
 
   def play
-    @game = Game.find_by_name(params[:name])
+    @game = Game.find_by_name(params[:name].upcase)
     @round = @game.current_round
     if @round.new?
       render "_new"

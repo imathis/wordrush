@@ -23,7 +23,7 @@ class Game < ApplicationRecord
   end
 
   def teams
-    players.empty? ? [] : players.group_by(&:team)
+    players.group_by(&:team)
   end
 
   def ready?
@@ -105,6 +105,17 @@ class Game < ApplicationRecord
 
   def new_round
     rounds.create()
+  end
+
+  def team_scores
+    ps = Player.includes(:plays).where(game_id: id)
+    ts = ps.group_by(&:team)
+    t = {}
+    ts.each do |team, pls|
+      t[team] = pls.map(&:points).sum
+    end
+
+    t
   end
 
   def self.expired_games

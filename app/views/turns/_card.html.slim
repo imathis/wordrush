@@ -1,4 +1,11 @@
-h1 Card
-p= @turn.plays.last.word.name
-p Time left: #{@turn.time_remaining}
-p= @turn.time_elapsed
+
+h1= @turn.current_word.name
+
+p Time left: #{@turn.time_remaining} seconds
+- if @turn.words_remaining > 1
+  p #{@turn.words_remaining - 1} cards left
+- else
+  p Last Card!
+p Current Player: #{@turn.player.name}
+
+= render "games/team_totals"
