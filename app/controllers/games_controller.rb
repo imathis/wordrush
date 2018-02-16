@@ -13,9 +13,6 @@ class GamesController < ApplicationController
     @games = Game.all
   end
 
-  def type
-  end
-
   def show
     @game = Game.find_by_name(params[:name])
   end

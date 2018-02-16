@@ -23,7 +23,7 @@ class Play < ApplicationRecord
     num = index + 1
 
     if guessed
-      if duration < 5
+      if duration < 5000
         s[:speed_bonus] = 5 
       end
 

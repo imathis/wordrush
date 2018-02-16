@@ -19,8 +19,8 @@ class Turn < ApplicationRecord
   end
 
   def time_remaining
-    t = (time_limit - time_elapsed).floor
-    t < 0 ? 0 : t
+    t = (time_limit - time_elapsed).ceil
+    t <= 0 ? 0 : t
   end
 
   def finished?
@@ -32,13 +32,13 @@ class Turn < ApplicationRecord
   end
 
   def played_words
-    complete = plays.complete.order(:duration)
+    complete = game.plays.complete.order(:duration)
     complete.empty? ? [] : complete.map(&:word)
   end
 
   def finish_word
     if p = plays.last
-      p.finish
+      p.finish(0 < time_remaining)
     end
   end
 
@@ -58,7 +58,7 @@ class Turn < ApplicationRecord
     finish_word
 
     if w = next_word
-      plays.create(game: game, round: round, player: player, word: w, index: plays.size)
+      plays.create(round: round, player: player, word: w, index: plays.size)
     end
   end
 end

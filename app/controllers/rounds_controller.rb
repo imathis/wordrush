@@ -4,7 +4,8 @@ class RoundsController < ApplicationController
     @game = Game.find_by_name(params[:game_name])
 
     if @game.ready?
-      redirect_to @game.start
+      @game.start
+      redirect_to play_round_path @game
     else
       flash[:error] = if !@game.players_ready?
         "Some players are still entering their words."
@@ -17,17 +18,16 @@ class RoundsController < ApplicationController
     end
   end
 
-  def show
+  def next_turn
     @round = Round.find(params[:id])
-    @game = @round.game
-    redirect_to play_round_path @game, @game.current_round.number
+    redirect_to play_round_path @round.game
   end
 
   def play
     @game = Game.find_by_name(params[:name].upcase)
     @round = @game.current_round
     if @round.new?
-      render "_new"
+      render "_start"
     elsif @round.finished?
       render "_results"
     elsif @round.turn_active?

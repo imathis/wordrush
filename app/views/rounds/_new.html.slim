@@ -1,1 +1,2 @@
-= render "rounds/rules/#{@round.number}"
+= form_with scope: :round, url: game_rounds_path(@game), local: true do |form|
+  = form.submit "Start Game"

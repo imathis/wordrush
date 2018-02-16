@@ -8,6 +8,9 @@ ul
       span= play.duration
       = render partial: "score", locals: { play: play, score: play.score }
 
-= @turn.player.team_score
-p Time left: #{@turn.time_remaining}
 p = @turn.player.points
+p Time left: #{@turn.time_remaining}
+p
+  'Team #{@turn.player.team_number} score:
+  = @turn.player.team_score
+p= link_to "Next", play_round_path(@turn.game)

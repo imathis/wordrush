@@ -9,3 +9,6 @@ p Time left: #{@turn.time_remaining} seconds
 p Current Player: #{@turn.player.name}
 
 = render "games/team_totals"
+
+= form_with url: next_word_path(@game, @turn), local: true do |form|
+  = form.submit "Next Word"

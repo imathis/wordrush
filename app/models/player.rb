@@ -21,6 +21,10 @@ class Player < ApplicationRecord
     game.player_word_limit - words.size
   end
 
+  def team_number
+    team + 1
+  end
+
   def ready?
     words_left == 0
   end
