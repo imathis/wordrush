@@ -116,6 +116,34 @@ class Game < ApplicationRecord
     t
   end
 
+  def fastest_play
+    plays.complete.order(:duration).first
+  end
+
+  def hardest_word
+    words.sort_by(&:duration).last
+  end
+
+  def easiest_word
+    words.sort_by(&:duration).first
+  end
+
+  def easiest_writer
+    players.sort_by(&:word_speed).first
+  end
+
+  def hardest_writer
+    players.sort_by(&:word_speed).last
+  end
+
+  def best_player_by_round(round)
+    players.sort_by { |p| p.points(round) }.last
+  end
+
+  def best_actor
+    best_player_by_round(rounds[1])
+  end
+
   def self.expired_games
     all.select(&:expired?)
   end

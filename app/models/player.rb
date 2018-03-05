@@ -39,9 +39,9 @@ class Player < ApplicationRecord
     game.team_scores[team]
   end
 
-  def points(turn=nil)
+  def points(round=nil)
     plays.complete.map { |p| 
-      if !turn || play.turn == turn
+      if !round || p.round == round
         p.score[:total] 
       else
         0
@@ -55,6 +55,10 @@ class Player < ApplicationRecord
 
   def set_admin
     self.admin = game.players.size == 0
+  end
+
+  def word_speed
+    words.map(&:duration).sum
   end
 
 end

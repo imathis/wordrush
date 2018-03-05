@@ -14,4 +14,8 @@ class Word < ApplicationRecord
     end
   end
 
+  def duration
+    plays.map(&:duration).sum
+  end
+
 end
