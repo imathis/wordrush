@@ -77,7 +77,7 @@ def self.play_turn(game, limit=60)
 
 end
 
-library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill fence candy fire lightning curls olympics patio stapler umbrella tub bath bubbles Epsom\ salt Netflix)
+library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill fence candy fire lightning curls olympics patio stapler umbrella tub bath bubbles Epsom\ salt Netflix kittens pantry feet hats tempest painting bourbon trust rushed curious worthy simple expenses contract experience crying help twist lemon pear grape bananas argument wonder shock theology funions).shuffle
 
 # Create a game which is ready to be played
 # It has four players, each with five words

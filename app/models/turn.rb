@@ -7,7 +7,7 @@ class Turn < ApplicationRecord
 
   # length in miliseconds
   def time_limit
-    60
+    5
   end
 
   def new?
@@ -32,7 +32,7 @@ class Turn < ApplicationRecord
   end
 
   def played_words
-    complete = game.plays.complete.order(:duration)
+    complete = round.plays.complete.order(:duration)
     complete.empty? ? [] : complete.map(&:word)
   end
 

@@ -3,8 +3,11 @@ class RoundsController < ApplicationController
 
     @game = Game.find_by_name(params[:game_name])
 
-    if @game.ready?
+    if @game.ready? && @game.rounds.empty?
       @game.start
+      redirect_to play_round_path @game
+    elsif !@game.rounds.empty?
+      @game.new_round
       redirect_to play_round_path @game
     else
       flash[:error] = if !@game.players_ready?
@@ -31,6 +34,9 @@ class RoundsController < ApplicationController
     elsif @round.finished?
       render "_results"
     elsif @round.turn_active?
+      redirect_to play_turn_path @game
+    else
+      @round.start_turn
       redirect_to play_turn_path @game
     end
   end

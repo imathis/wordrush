@@ -9,5 +9,4 @@ h1 Welcome to WordRush
   p= link_to "Add a player", new_game_player_path(@game)
 
 - if @game.ready?
-  = render "rounds/new"
-
+  = render "games/start"

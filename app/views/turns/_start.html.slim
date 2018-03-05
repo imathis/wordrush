@@ -1,4 +1,4 @@
-h1 Get ready, #{@game.next_player.name} on Team #{@game.next_player.team_number}
+h1 Get ready, #{@game.current_turn.player.name} on Team #{@game.current_turn.player.team_number}
 
 = form_with scope: :round, url: next_word_path(@game, @turn), local: true do |form|
   = form.submit "Start"

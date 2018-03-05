@@ -108,10 +108,8 @@ class Game < ApplicationRecord
   end
 
   def team_scores
-    ps = Player.includes(:plays).where(game_id: id)
-    ts = ps.group_by(&:team)
     t = {}
-    ts.each do |team, pls|
+    teams.each do |team, pls|
       t[team] = pls.map(&:points).sum
     end
 

@@ -39,8 +39,14 @@ class Player < ApplicationRecord
     game.team_scores[team]
   end
 
-  def points
-    plays.complete.map { |p| p.score[:total] }.sum
+  def points(turn=nil)
+    plays.complete.map { |p| 
+      if !turn || play.turn == turn
+        p.score[:total] 
+      else
+        0
+      end
+    }.sum
   end
 
   def choose_team

@@ -1,1 +1,10 @@
 h1 Results
+
+- @game.teams.each do |team, players|
+  h5 Team #{team + 1} (#{@game.team_scores[team]})
+  ul
+    - players.each do |player|
+      li
+        |#{player.name} (#{player.points})
+- if @game.rounds.size < 3
+  = render "rounds/new"

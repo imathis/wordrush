@@ -10,7 +10,7 @@ class Round < ApplicationRecord
   end
 
   def turn_active?
-    !new? && !finished?
+    !new? && !turns.last.finished?
   end
 
   def finished?
