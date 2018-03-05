@@ -1,0 +1,47 @@
+h1 Results
+
+- @game.teams.each do |team, players|
+  h5 Team #{team + 1} (#{@game.team_scores[team]})
+  ul
+    - players.each do |player|
+      li
+        |#{player.name} (#{player.points})
+
+hr
+
+h4 Easiest Writer
+p= @game.easiest_writer.name
+
+hr
+
+h4 Hardest Writer
+p= @game.hardest_writer.name
+
+hr
+
+h4 Hardest word
+p= @game.hardest_word.name
+ul
+  - @game.hardest_word.plays.complete.each do |play|
+    li
+      => play.player.name
+      |(#{play.duration})
+
+hr
+
+h4 Easiest word
+p= @game.easiest_word.name
+ul
+  - @game.easiest_word.plays.complete.each do |play|
+    li
+      => play.player.name
+      |(#{play.duration})
+
+hr
+
+h4 Best Player by round
+ul
+  - @game.rounds.each do |round|
+    li
+      strong=> round.number
+      span= round.best_player.name

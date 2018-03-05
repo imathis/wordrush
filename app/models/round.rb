@@ -36,4 +36,8 @@ class Round < ApplicationRecord
   def number
     game.rounds.find_index(self) + 1
   end
+
+  def best_player
+    players.sort_by { |p| p.points(self) }.last
+  end
 end

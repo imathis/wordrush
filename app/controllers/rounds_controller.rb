@@ -32,7 +32,11 @@ class RoundsController < ApplicationController
     if @round.new?
       render "_start"
     elsif @round.finished?
-      render "_results"
+      if @round.number == 3
+        redirect_to game_results_path @game
+      else
+        render "_results"
+      end
     elsif @round.turn_active?
       redirect_to play_turn_path @game
     else

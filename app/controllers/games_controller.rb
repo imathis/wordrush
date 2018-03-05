@@ -50,6 +50,10 @@ class GamesController < ApplicationController
 
   end
 
+  def results
+    @game = Game.find_by_name(params[:name])
+  end
+
   private
 
   def game_params

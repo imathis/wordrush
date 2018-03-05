@@ -136,12 +136,8 @@ class Game < ApplicationRecord
     players.sort_by(&:word_speed).last
   end
 
-  def best_player_by_round(round)
-    players.sort_by { |p| p.points(round) }.last
-  end
-
   def best_actor
-    best_player_by_round(rounds[1])
+    rounds[1].best_player
   end
 
   def self.expired_games

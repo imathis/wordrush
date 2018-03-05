@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   get '/:name', to: "games#join"
+  get '/:name/results', to: "games#results", as: :game_results
   post '/join', to: "games#join"
 
   get '/:name/play/', to: "rounds#play", as: :play_round
