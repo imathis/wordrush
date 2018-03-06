@@ -6,6 +6,13 @@ class TurnsController < ApplicationController
     redirect_to play_turn_path @game
   end
 
+  def end
+    @turn = Turn.find(params[:id])
+    @turn.finish
+    
+    redirect_to play_turn_path @turn.game
+  end
+
   def next_word
     @turn = Turn.find(params[:id])
     @turn.play_word

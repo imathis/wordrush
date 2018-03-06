@@ -1,7 +1,10 @@
 
 h1= @turn.current_word.name
 
-p Time left: #{@turn.time_remaining} seconds
+script
+  |window.setTimeout(function() { document.querySelector('#end-turn').submit() }, #{@turn.ms_remaining}) 
+
+p Time left: #{@turn.seconds_remaining} seconds
 - if @turn.words_remaining > 1
   p #{@turn.words_remaining - 1} cards left
 - else
@@ -12,3 +15,5 @@ p Current Player: #{@turn.player.name}
 
 = form_with url: next_word_path(@game, @turn), local: true do |form|
   = form.submit "Next Word"
+
+= form_with id: 'end-turn', url: end_turn_path(@game, @turn), local: true

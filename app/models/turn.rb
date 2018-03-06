@@ -5,9 +5,9 @@ class Turn < ApplicationRecord
   has_many :plays, dependent: :destroy
   has_many :words, through: :plays
 
-  # length in miliseconds
+  # length in seconds (add a couple of seconds to account for load time)
   def time_limit
-    5
+    62
   end
 
   def new?
@@ -18,17 +18,29 @@ class Turn < ApplicationRecord
     Time.now - plays.first.created_at
   end
 
-  def time_remaining
-    t = (time_limit - time_elapsed).ceil
+  def ms_remaining
+    (1000 * time_remaining).ceil
+  end
+
+  def seconds_remaining
+    t = (time_remaining).ceil
     t <= 0 ? 0 : t
   end
 
+  def time_remaining
+    time_limit - time_elapsed
+  end
+
   def finished?
-    next_word.nil? || time_remaining <= 0
+    next_word.nil? || !plays.empty? && time_remaining <= 0
   end
 
   def next_word
     (game.words - played_words).shuffle.first
+  end
+
+  def finish
+    plays.last.finish(false)
   end
 
   def played_words
@@ -36,7 +48,7 @@ class Turn < ApplicationRecord
     complete.empty? ? [] : complete.map(&:word)
   end
 
-  def finish_word
+  def finish_word(complete=nil)
     if p = plays.last
       p.finish(0 < time_remaining)
     end

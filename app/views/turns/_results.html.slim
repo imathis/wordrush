@@ -9,7 +9,6 @@ ul
       = render partial: "score", locals: { play: play, score: play.score }
 
 p = @turn.player.points
-p Time left: #{@turn.time_remaining}
 p
   'Team #{@turn.player.team_number} score:
   = @turn.player.team_score

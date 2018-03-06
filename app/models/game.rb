@@ -37,7 +37,7 @@ class Game < ApplicationRecord
   end
 
   def player_word_limit
-    5
+    6
   end
 
   # Game was created 5 hours ago
