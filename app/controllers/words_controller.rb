@@ -7,7 +7,11 @@ class WordsController < ApplicationController
 
   def create
     @player = Player.find(params[:player_id])
-    @player.words.create(word_params)
+    begin
+      @player.words.create(word_params)
+    rescue NameError => e
+      flash[:error] = e
+    end
     
     if @player.ready?
       redirect_to game_path(@player.game)

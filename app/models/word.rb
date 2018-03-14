@@ -10,12 +10,8 @@ class Word < ApplicationRecord
 
   def word_exists?
     if player.game.words.map(&:name).map(&:downcase).include?(name.downcase)
-      raise NameError.new("Word '#{name}' has already been chosen. Think of another word.")
+      raise NameError.new("'#{name}' has already been chosen. Think of another word.")
     end
-  end
-
-  def duration
-    plays.map(&:duration).sum
   end
 
 end

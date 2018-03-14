@@ -9,9 +9,20 @@ class Game < ApplicationRecord
                    uniqueness: true,
                     length: { minimum: 5, maximum: 20 }
 
-  # How many teams should there be?
   def team_count
     2
+  end
+
+  def round_count
+    3
+  end
+
+  def player_word_limit
+    6
+  end
+
+  def minimum_players
+    4
   end
 
   def to_param 
@@ -36,17 +47,9 @@ class Game < ApplicationRecord
     players.reject(&:ready?).empty?
   end
 
-  def player_word_limit
-    6
-  end
-
   # Game was created 5 hours ago
   def expired?
     created_at.advance(hours: 5) < Time.now
-  end
-
-  def minimum_players
-    4
   end
 
   def enough_players?

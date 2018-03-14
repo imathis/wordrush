@@ -3,13 +3,8 @@ class RoundsController < ApplicationController
 
     @game = Game.find_by_name(params[:game_name])
 
-    if @game.ready? && @game.rounds.empty?
-      @game.start
-      redirect_to play_round_path @game
-    elsif !@game.rounds.empty?
-      @game.new_round
-      redirect_to play_round_path @game
-    else
+    # Not ready to start
+    if !@game.ready?
       flash[:error] = if !@game.players_ready?
         "Some players are still entering their words."
       else
@@ -18,6 +13,15 @@ class RoundsController < ApplicationController
       end
 
       redirect_to game_path @game
+    # Ready/Started
+    else
+      if @game.rounds.empty?
+        @game.start 
+      elsif @game.current_round.finished?
+        @game.new_round
+      end
+
+      redirect_to play_round_path @game
     end
   end
 
@@ -29,6 +33,7 @@ class RoundsController < ApplicationController
   def play
     @game = Game.find_by_name(params[:name].upcase)
     @round = @game.current_round
+
     if @round.new?
       render "_start"
     elsif @round.finished?

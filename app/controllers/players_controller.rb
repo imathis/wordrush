@@ -3,9 +3,20 @@ class PlayersController < ApplicationController
     @game = Game.find_by_name(params[:game_name])
     pparams = player_params
 
-    @player = @game.players.create(pparams)
-    session[:current_player_id] = @player.id if session[:current_player_id].nil?
-    redirect_to new_player_word_path(@player)
+    begin
+      @player = @game.players.create(pparams)
+
+      session[:current_player_id] = @player.id if session[:current_player_id].nil?
+      session[:current_game_id] = @game.id
+      redirect_to new_player_word_path(@player)
+    rescue NameError => e
+      flash[:error] = e
+      redirect_to new_game_player_path(@game)
+    end
+  end
+
+  def new
+    @game = Game.find_by_name(params[:game_name])
   end
 
   def index

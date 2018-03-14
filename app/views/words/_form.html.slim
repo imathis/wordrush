@@ -1,3 +1,5 @@
-= form_with model: [@player, @player.words.build], local: true do |form|
+- if flash[:error]
+  p.flash=flash[:error]
+= form_with model: [@player, @player.words.build] do |form|
   = form.text_field :name, placeholder: "Your Word"
   = form.submit "Add Word"

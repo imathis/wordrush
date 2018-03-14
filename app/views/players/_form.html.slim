@@ -1,3 +1,5 @@
-= form_with model: [ @game, @game.players.build ], local: true do |form|
+- if flash[:error]
+  p.flash=flash[:error]
+= form_with model: [ @game, @game.players.build ] do |form|
   = form.text_field :name, placeholder: 'Your Name'
   = form.submit 'Join'

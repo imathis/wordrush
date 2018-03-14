@@ -31,7 +31,7 @@ class Player < ApplicationRecord
 
   def name_exists?
     if game.players.map(&:name).map(&:downcase).include?(name.downcase)
-      raise NameError.new("Someone named '#{name}' has already joined. Please enter a different name.")
+      raise NameError.new("Someone has already chosen the name '#{name}'. Please choose a different name.")
     end
   end
 

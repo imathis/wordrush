@@ -19,8 +19,7 @@ class GamesController < ApplicationController
 
   def destroy
     Game.find_by_name(params[:name]).destroy
-    redirect_to games_path
-  end
+    redirect_to games_path end
 
   def join
     @game = Game.find_by_name(params[:name].upcase)

@@ -27,7 +27,7 @@ end
 
 def self.add_words(players, words)
   players.each do |player|
-    w = words.shift(5).map{ |w| player_word(w) }
+    w = words.shift(player.game.player_word_limit).map{ |w| player_word(w) }
     player.words.create w
   end
 end
@@ -82,7 +82,7 @@ library = %w(trees ocean camera syrup lens lake child salsa lamp dessert grill f
 # Create a game which is ready to be played
 # It has four players, each with five words
 add_game('GAME_READY', %w(Michael Jim Dwight Stanley), library.dup)
-add_game('GAME_NOT_READY', %w(Susan Alice Jacob), library.first(14))
+add_game('GAME_NOT_READY', %w(Susan Alice Jacob), library.dup)
 
 game = add_game('GAME_STARTED', %w(John Paul George Ringo), library.dup)
 game.start.start_turn
