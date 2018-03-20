@@ -1,0 +1,49 @@
+/* ===================================== *
+ * Universal
+ * ------------------------------------- */
+
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+/* ===================================== *
+ * Document
+ * ------------------------------------- */
+
+html {
+  background: linear-gradient(140deg, #4777E6 20%, #8E54E9 80%);
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: $base-size;
+  flex-flow: row wrap;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.hidden {
+  display: none;
+}
+
+@mixin block-margin ($margin: $vertical-margin) {
+  margin-top: $margin;
+  margin-bottom: $margin;
+}
+
+#{$block-elements} {
+  @include block-margin;
+}
+
+/* ===================================== *
+ * Application
+ * ------------------------------------- */
+

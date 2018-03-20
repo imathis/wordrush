@@ -1,0 +1,14 @@
+body,
+input,
+select,
+button,
+textarea {
+  font-size: $base-size;
+  font-family: $base-font;
+  line-height: $base-line-height;
+  @include font-smoothing;
+}
+
+.tilted {
+  transform: rotate(-11deg) skew(-11deg);
+}

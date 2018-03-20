@@ -1,3 +1,21 @@
-h1 WordRush
-= render 'games/new'
-= render 'games/join'
+.tilted
+  header
+    h1 WordRush
+    .word-title
+      .word-svgs
+        = use_svg "word", scale: true, aria_hidden: true
+        = use_svg "word", scale: true, aria_hidden: true
+        = use_svg "word", scale: true, aria_hidden: true
+        = use_svg "word", scale: true, aria_hidden: true
+      .rush-svgs
+        = use_svg "rush", scale: true, aria_hidden: true
+        = use_svg "rush", scale: true, aria_hidden: true
+    p A party game for quick-witted people and their friends
+  .game-choices
+    button data-show="#start" START
+    span.line 
+      span.bars OR
+    button data-show="#join" JOIN
+
+#start.hidden= render 'games/new'
+#join.hidden= render 'games/join'

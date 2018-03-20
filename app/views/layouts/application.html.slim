@@ -1,0 +1,22 @@
+doctype html
+html class=@page_class
+  head
+
+    / Document Settings
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    = csrf_meta_tags
+    title WordRush
+
+    / Mobile
+    meta name="HandheldFriendly" content="True"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = embed_svgs
+    main role="main"
+      = yield
