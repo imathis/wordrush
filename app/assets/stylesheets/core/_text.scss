@@ -1,3 +1,6 @@
+body {
+  color: #fff;
+}
 body,
 input,
 select,
@@ -11,4 +14,66 @@ textarea {
 
 .tilted {
   transform: rotate(-11deg) skew(-11deg);
+}
+
+@mixin block-margin ($margin: $vertical-margin) {
+  margin-top: $margin;
+  margin-bottom: $margin;
+}
+
+#{$block-elements} {
+  @include block-margin;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 200;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  line-height: 1em;
+}
+
+// 1.125 modular scale - http://www.modularscale.com/?16&px&1.125&web&text
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 42px;
+}
+
+h3 {
+  font-size: 32px;
+}
+
+h4 {
+  font-size: 28px;
+}
+
+h5 {
+  font-size: 22px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+b,
+strong {
+  font-weight: 500;
+}
+
+// Links & buttons
+a,
+button {
+  cursor: pointer;
+}
+
+hr {
+  border: solid $gray-04;
+  border-width: 1px 0 0 0;
 }

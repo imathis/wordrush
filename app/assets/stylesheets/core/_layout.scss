@@ -11,12 +11,8 @@
   box-sizing: border-box;
 }
 
-/* ===================================== *
- * Document
- * ------------------------------------- */
-
 html {
-  background: linear-gradient(140deg, #4777E6 20%, #8E54E9 80%);
+  background: linear-gradient(180deg, #4777E6 10%, #8E54E9 90%) no-repeat center center fixed;
 }
 
 body {
@@ -28,6 +24,12 @@ body {
   flex-flow: row wrap;
   align-items: stretch;
   justify-content: space-around;
+}
+
+main {
+  align-self: center;
+  padding: 1em;
+  flex: 0 1 400px;
 }
 
 .hidden {
@@ -42,8 +44,3 @@ body {
 #{$block-elements} {
   @include block-margin;
 }
-
-/* ===================================== *
- * Application
- * ------------------------------------- */
-

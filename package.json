@@ -1,5 +1,10 @@
 {
-  "name": "wordrush",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "browserify": "^14.0.0",
+    "browserify-incremental": "^3.1.0",
+    "compose-event": "^1.9.1",
+    "compose-toggler": "^1.5.0",
+    "compose-toolbox": "^1.4.3"
+  }
 }

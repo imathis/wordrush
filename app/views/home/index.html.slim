@@ -1,8 +1,9 @@
-.tilted
+.home.tilted
   header
-    h1 WordRush
+    h1.hidden WordRush
     .word-title
       .word-svgs
+        = use_svg "word", scale: true, aria_hidden: true
         = use_svg "word", scale: true, aria_hidden: true
         = use_svg "word", scale: true, aria_hidden: true
         = use_svg "word", scale: true, aria_hidden: true
@@ -10,12 +11,17 @@
       .rush-svgs
         = use_svg "rush", scale: true, aria_hidden: true
         = use_svg "rush", scale: true, aria_hidden: true
-    p A party game for quick-witted people and their friends
+    .subtitle 
+      .line A party game
+      .line for quick-witted people
+      .line and their friends
   .game-choices
     button data-show="#start" START
     span.line 
       span.bars OR
     button data-show="#join" JOIN
 
-#start.hidden= render 'games/new'
-#join.hidden= render 'games/join'
+  p.note You'll need 4 or more players.
+
+  #start.hidden= render 'games/new'
+  #join.hidden= render 'games/join'

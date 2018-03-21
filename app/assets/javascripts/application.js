@@ -13,3 +13,6 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+window.WR = {
+  event: require('compose-event')
+}
