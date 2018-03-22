@@ -1,4 +1,4 @@
 h1 Get ready, #{@game.current_turn.player.name} on Team #{@game.current_turn.player.team_number}
 
-= form_with url: next_word_path(@game, @turn), local: true do |form|
+= form_with url: next_word_path(@game, @turn) do |form|
   = form.submit "Start"

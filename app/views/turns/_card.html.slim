@@ -13,7 +13,7 @@ p Current Player: #{@turn.player.name}
 
 = render "games/team_totals"
 
-= form_with url: next_word_path(@game, @turn), local: true do |form|
+= form_with url: next_word_path(@game, @turn) do |form|
   = form.submit "Next Word"
 
-= form_with id: 'end-turn', url: end_turn_path(@game, @turn), local: true
+= form_with id: 'end-turn', url: end_turn_path(@game, @turn)

@@ -1,0 +1,14 @@
+@keyframes slide-exit {
+  0% {
+    transform: translate(0, 0) 
+  } 100% {
+    transform: translateX(-100vw) 
+  }
+}
+@keyframes slide-enter {
+  0% {
+    transform: translateX(100vw) 
+  } 100% {
+    transform: translate(0, 0) 
+  }
+}

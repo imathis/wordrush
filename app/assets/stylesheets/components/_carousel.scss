@@ -1,0 +1,76 @@
+.carousel {
+  &-step {
+    // Transition to form step
+    &.enter[data-direction=forward] { animation: fade-in-forward .2s forwards; }
+    &.enter[data-direction=reverse] { animation: fade-in-reverse .2s forwards; }
+
+    // Transition away from form step
+    &.exit[data-direction=forward] { animation: fade-out-forward .2s forwards; }
+    &.exit[data-direction=reverse] { animation: fade-out-reverse .2s forwards; }
+  }
+}
+
+main {
+  animation: fade-in-forward .3s forwards;
+}
+
+// Transition to form step
+@keyframes fade-in-forward {
+  0% {
+    opacity: 0;
+    transform: perspective(1px) translate3d(50vw, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(1px) translate3d(0, 0, 0);
+  }
+}
+
+// Transition away from form step
+@keyframes fade-out-forward {
+  0% {
+    opacity: 1;
+    transform: perspective(1px) translate3d(0, 0, 0);
+  }
+
+  99% {
+    opacity: 0;
+    transform: perspective(1px) translate3d(-50vw, 0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: perspective(1px) translate3d(-200vw, 0, 0);
+  }
+}
+
+// Transition away from form step
+@keyframes fade-out-reverse {
+  0% {
+    opacity: 1;
+    transform: perspective(1px) translate3d(0, 0, 0);
+  }
+
+  99% {
+    opacity: 0;
+    transform: perspective(1px) translate3d(50vw, 0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: perspective(1px) translate3d(200vw, 0, 0);
+  }
+}
+// Return to previous form step
+@keyframes fade-in-reverse {
+  0% {
+    opacity: 0;
+    transform: perspective(1px) translate3d(-50vw, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(1px) translate3d(0, 0, 0);
+  }
+}

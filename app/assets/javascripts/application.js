@@ -12,7 +12,11 @@
 //
 //= require rails-ujs
 //= require turbolinks
-//= require_tree .
-window.WR = {
-  event: require('compose-event')
-}
+var toolbox = require('compose-toolbox'),
+    Event = toolbox.event
+
+require('compose-toggler')
+require('./components/carousel')
+
+window.Rush = module.exports = toolbox.merge( {
+}, toolbox )

@@ -1,9 +1,7 @@
-= form_with scope: :game, url: games_path, local: true do |form|
+= form_with scope: :game, url: games_path do |form|
   = form.hidden_field :one_device, value: true
-  button.tilted type='submit'
-    span Pass and Play
+  = primary_button "Pass & Play"
 
-= form_with scope: :game, url: games_path, local: true do |form|
+= form_with scope: :game, url: games_path do |form|
   = form.hidden_field :one_device, value: false
-  button.tilted type='submit'
-    span Multi Screen 
+  = primary_button 'Multi Screen'

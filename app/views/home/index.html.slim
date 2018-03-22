@@ -1,27 +1,38 @@
-.home.tilted
-  header
-    h1.hidden WordRush
-    .word-title
-      .word-svgs
-        = use_svg "word", scale: true, aria_hidden: true
-        = use_svg "word", scale: true, aria_hidden: true
-        = use_svg "word", scale: true, aria_hidden: true
-        = use_svg "word", scale: true, aria_hidden: true
-        = use_svg "word", scale: true, aria_hidden: true
-      .rush-svgs
-        = use_svg "rush", scale: true, aria_hidden: true
-        = use_svg "rush", scale: true, aria_hidden: true
-    .subtitle 
-      .line A party game
-      .line for quick-witted people
-      .line and their friends
-  .game-choices
-    button data-show="#start" START
-    span.line 
-      span.bars OR
-    button data-show="#join" JOIN
+.carousel
+  .carousel-step.home
+    .tilted
+      header
+        h1.hidden WordRush
+        .word-title
+          .word-svgs
+            = use_svg "word", scale: true, aria_hidden: true
+            = use_svg "word", scale: true, aria_hidden: true
+            = use_svg "word", scale: true, aria_hidden: true
+            = use_svg "word", scale: true, aria_hidden: true
+            = use_svg "word", scale: true, aria_hidden: true
+          .rush-svgs
+            = use_svg "rush", scale: true, aria_hidden: true
+            = use_svg "rush", scale: true, aria_hidden: true
+        .subtitle 
+          .line A party game
+          .line for quick-witted people
+          .line and their friends
+      .game-choices
+        .buttons
+          = button 'START', class: 'carousel-nav-item', data: { step: '2' }
+          span.line 
+            span.bars OR
+          = button 'JOIN', class: 'carousel-nav-item', data: { step: '3' }
 
-  p.note You'll need 4 or more players.
+          p.note You'll need 4 or more players.
 
-  #start.hidden= render 'games/new'
-  #join.hidden= render 'games/join'
+  .carousel-step
+    = render 'games/new'
+    p.note 
+      'Oops?
+      a.back-step href='#' Start a new game.
+  .carousel-step
+    = render 'games/join'
+    p.note 
+      'Don't have a code? 
+      a.back-step href='#' Start a new game.
